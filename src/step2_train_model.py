@@ -34,6 +34,11 @@ X_train = X[train_mask]
 
 print("Training rows:", X_train.shape)
 
+# Isolation Forest is used for anomaly detection.
+# The model learns the normal behavior of network traffic
+# using only benign flows and identifies observations
+# that deviate significantly from that baseline.
+
 pipeline = Pipeline([
     ("imputer", SimpleImputer(strategy="median")),
     ("model", IsolationForest(
