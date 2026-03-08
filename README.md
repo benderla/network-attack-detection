@@ -22,3 +22,13 @@ These patterns make it possible for machine learning models
 to distinguish malicious traffic from normal network behavior.
 
 Future Work
+
+## Dataset Source
+
+This project uses the CIC-IDS2017 intrusion detection dataset, which contains
+labeled network flow statistics representing both benign traffic and several
+types of denial-of-service attacks.
+
+The dataset includes flow-level features such as connection duration, packet
+counts, byte rates, and packet size statistics. These features make it useful
+for exploring anomaly detection and attack classification workflows.
