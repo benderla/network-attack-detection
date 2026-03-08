@@ -4,5 +4,21 @@ This project explores how machine learning can be used to detect anomalous netwo
 Project Overview
 Dataset
 Methodology
-Key Findings
+
+## Key Observations
+
+During exploration of the CIC-IDS2017 dataset several behavioral
+differences between benign and attack traffic were observed.
+
+• Attack flows tend to have significantly longer connection durations.
+
+• Certain attacks generate extremely high packet rates compared
+  to normal traffic.
+
+• Average packet size for attack traffic was much larger
+  than benign flows.
+
+These patterns make it possible for machine learning models
+to distinguish malicious traffic from normal network behavior.
+
 Future Work
