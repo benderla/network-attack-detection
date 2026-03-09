@@ -1,9 +1,24 @@
 Machine learning project detecting anomalous network traffic using
 Isolation Forest on the CIC-IDS2017 cybersecurity dataset.
 
-# Network Attack Detection using Machine Learning
+# Network Attack Detection using Isolation Forest
 
 Machine Learning | Cybersecurity | Anomaly Detection | Python
+
+---
+
+## Project Overview
+
+The project simulates how security analysts surface abnormal network activity
+without relying on predefined attack signatures.
+
+Key capabilities demonstrated:
+
+• Large-scale network flow analysis (~700k flows)  
+• Isolation Forest anomaly detection  
+• Feature importance analysis for network indicators  
+• Visualization of suspicious traffic patterns  
+• SOC-style anomaly investigation workflow
 
 This project explores machine learning techniques for identifying suspicious
 network traffic using the CIC-IDS2017 intrusion detection dataset.
@@ -11,6 +26,15 @@ network traffic using the CIC-IDS2017 intrusion detection dataset.
 The goal is to demonstrate how anomaly detection models can identify
 network traffic that deviates from normal behavior and may indicate
 malicious activity.
+
+---
+
+## Example Visualization
+
+Below is an example of anomaly detection results highlighting
+the most suspicious network flows identified by the model.
+
+![Top Suspicious Network Flows](outputs/anomaly_chart.png)
 
 ---
 
@@ -40,8 +64,6 @@ Canadian Institute for Cybersecurity (CIC)
 CIC-IDS2017 Intrusion Detection Dataset
 https://www.unb.ca/cic/datasets/ids-2017.html
 
-MIT License
-
 ---
 
 ## Dataset
@@ -66,6 +88,10 @@ packet counts, byte rates, durations, and connection behavior.
 
 attack_detection_model.ipynb – Full notebook containing data preparation,
 model training, anomaly detection, and visualizations.
+
+src/ – supporting scripts used for preprocessing and model training
+
+outputs/ – generated anomaly detection results and visualizations
 
 ---
 
@@ -197,6 +223,17 @@ within large network datasets.
 
 ---
 
+## Operational Security Insight
+
+In a real security operations environment, anomaly detection models
+would be used to prioritize network flows for analyst investigation.
+
+Rather than automatically labeling traffic as malicious, the model
+helps analysts focus on unusual behavior that deviates from baseline
+network activity patterns.
+
+---
+
 ## Future Work
 
 Potential improvements include:
@@ -253,6 +290,10 @@ model = IsolationForest(
 
 model.fit(X_train)
 ```
+
+---
+
+MIT License
 
 ---
 
