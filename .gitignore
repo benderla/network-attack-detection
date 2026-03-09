@@ -1,5 +1,9 @@
-venv/
-data/*.csv
 __pycache__/
+*.pyc
 .ipynb_checkpoints/
-*.joblib
+venv/
+.env
+data/
+*.csv
+*.pcap
+*.zip

@@ -166,7 +166,7 @@ corresponded with malicious activity patterns.
 
 Example output from the anomaly detection model:
 
-![Anomaly Detection Example](anomaly_chart.png)
+![Anomaly Detection Example](outputs/anomaly_detection_example.png)
 
 ---
 
@@ -174,6 +174,28 @@ Example output from the anomaly detection model:
 
 The model flagged approximately 1% of network flows as anomalous,
 aligning with the contamination parameter used during training.
+
+---
+
+## Operational Use Case
+
+In a real security operations center (SOC), anomaly detection models like this are used to help analysts prioritize network activity for investigation.
+
+Instead of relying only on known attack signatures, anomaly detection highlights traffic patterns that deviate from normal behavior. These anomalies can then be correlated with other telemetry sources such as:
+
+• Firewall logs  
+• Endpoint detection alerts  
+• Authentication events  
+• Threat intelligence indicators  
+
+Security analysts can review the highest-scoring anomalies to identify:
+
+• Port scanning activity  
+• Denial-of-service traffic patterns  
+• Unusual connection durations  
+• Abnormal packet sizes or transfer volumes  
+
+This approach enables earlier detection of previously unseen or evolving attack techniques that may bypass traditional rule-based detection systems.
 
 ---
 
@@ -234,14 +256,12 @@ network activity patterns.
 
 ---
 
-## Future Work
+## Future Improvements
 
-Potential improvements include:
-
-- Adding additional feature engineering
-- Evaluating supervised classification models
-- Investigating temporal attack patterns
-- Integrating results with SIEM-style alerts
+• Incorporate additional network metadata such as source IP reputation
+• Apply graph analytics to identify suspicious communication clusters
+• Deploy the model as a real-time anomaly detection pipeline
+• Compare Isolation Forest with other unsupervised models (LOF, Autoencoders)
 
 ---
 
@@ -258,6 +278,24 @@ pip install pandas numpy scikit-learn matplotlib
 3. Launch the notebook
 
 jupyter notebook attack_detection_model.ipynb
+
+---
+
+## Command Line Detection
+
+The project also includes a simple script for running anomaly detection
+without using the notebook.
+
+Run:
+
+python src/run_detection.py
+
+This will train the Isolation Forest model and generate a file
+containing the most suspicious network flows.
+
+Output file:
+
+outputs/top_anomalies.csv
 
 ---
 
