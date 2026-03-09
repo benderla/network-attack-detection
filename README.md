@@ -1,34 +1,81 @@
-# network-attack-detection
-This project explores how machine learning can be used to detect anomalous network traffic using the CIC-IDS2017 dataset. The goal is to understand behavioral differences between benign traffic and several denial-of-service attacks and evaluate how well machine learning models can identify suspicious flows.
+# Network Attack Detection using Machine Learning
 
-Project Overview
-Dataset
-Methodology
+This project explores machine learning techniques for identifying suspicious
+network traffic using the CIC-IDS2017 intrusion detection dataset.
 
-## Key Observations
+The goal is to demonstrate how anomaly detection models can help surface
+potential malicious activity within large volumes of network flow data.
 
-During exploration of the CIC-IDS2017 dataset several behavioral
-differences between benign and attack traffic were observed.
+---
 
-• Attack flows tend to have significantly longer connection durations.
+## Dataset
 
-• Certain attacks generate extremely high packet rates compared
-  to normal traffic.
+CIC-IDS2017 Intrusion Detection Dataset
 
-• Average packet size for attack traffic was much larger
-  than benign flows.
+This dataset contains labeled network traffic including both benign activity
+and multiple attack types such as:
 
-These patterns make it possible for machine learning models
-to distinguish malicious traffic from normal network behavior.
+- DoS Hulk
+- DoS GoldenEye
+- Slowloris
+- Slowhttptest
+- Heartbleed
 
-Future Work
+Each record represents a network flow with statistical features describing
+packet counts, byte rates, durations, and connection behavior.
 
-## Dataset Source
+---
 
-This project uses the CIC-IDS2017 intrusion detection dataset, which contains
-labeled network flow statistics representing both benign traffic and several
-types of denial-of-service attacks.
+## Approach
 
-The dataset includes flow-level features such as connection duration, packet
-counts, byte rates, and packet size statistics. These features make it useful
-for exploring anomaly detection and attack classification workflows.
+The project uses an unsupervised anomaly detection approach.
+
+Steps performed:
+
+1. Load and clean the network flow dataset
+2. Train an Isolation Forest model on benign traffic
+3. Score all flows based on anomaly likelihood
+4. Identify the most suspicious network activity
+5. Visualize anomalous flows and suspicious destination ports
+
+---
+
+## Key Findings
+
+The anomaly detection model highlights flows that deviate most strongly
+from normal network behavior.
+
+Analysis of suspicious flows shows patterns consistent with attack behavior
+present in the dataset, including abnormal connection durations and traffic
+rates.
+
+Port analysis helps identify the network services most associated with
+suspicious activity.
+
+---
+
+## Visualizations
+
+The notebook includes visualizations such as:
+
+- Top Suspicious Network Flows
+- Suspicious Destination Ports
+
+These visualizations help analysts quickly identify unusual traffic patterns.
+
+---
+
+## Future Work
+
+Potential improvements include:
+
+- Adding additional feature engineering
+- Evaluating supervised classification models
+- Investigating temporal attack patterns
+- Integrating results with SIEM-style alerts
+
+---
+
+## Author
+
+Lee
