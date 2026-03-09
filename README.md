@@ -58,6 +58,22 @@ surface suspicious activity without relying on predefined signatures.
 
 ---
 
+## Detection Pipeline
+
+CIC-IDS2017 Dataset
+        ↓
+Data Cleaning & Feature Selection
+        ↓
+Isolation Forest Model
+        ↓
+Anomaly Scoring
+        ↓
+Top Suspicious Network Flows
+        ↓
+Security Investigation
+
+---
+
 ## Data Source
 
 Canadian Institute for Cybersecurity (CIC)
@@ -209,6 +225,19 @@ Key observations included:
 - Multiple anomalous flows associated with known attack types in the dataset
 - Abnormally high connection durations and packet rates
 - Concentrated suspicious activity on specific destination ports
+
+---
+
+## Model Performance Summary
+
+| Metric | Result |
+|------|------|
+| Dataset Size | ~700,000 network flows |
+| Model | Isolation Forest |
+| Anomaly Rate | 1% |
+| Top Suspicious Flows Investigated | 20 |
+| Detected Attack Types | DoS, Slowloris, Heartbleed |
+| Key Indicators | abnormal packet rates, long durations |
 
 ---
 
