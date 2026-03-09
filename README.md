@@ -3,7 +3,7 @@ Isolation Forest on the CIC-IDS2017 cybersecurity dataset.
 
 # Network Attack Detection using Isolation Forest
 
-Machine Learning | Cybersecurity | Anomaly Detection | Python
+Machine Learning | Cybersecurity | Network Anomaly Detection | Python
 
 ---
 
@@ -97,6 +97,9 @@ representing both benign activity and multiple cyber attack types.
 
 Each record represents a network flow with statistical features describing
 packet counts, byte rates, durations, and connection behavior.
+
+Dataset files are not included in this repository due to size limitations.
+Download instructions are provided below.
 
 ---
 
@@ -271,17 +274,6 @@ within large network datasets.
 - Exploratory data analysis
 - Data visualization
 - Cybersecurity data analysis
-
----
-
-## Operational Security Insight
-
-In a real security operations environment, anomaly detection models
-would be used to prioritize network flows for analyst investigation.
-
-Rather than automatically labeling traffic as malicious, the model
-helps analysts focus on unusual behavior that deviates from baseline
-network activity patterns.
 
 ---
 
