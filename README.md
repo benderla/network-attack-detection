@@ -250,6 +250,20 @@ Key observations included:
 
 ---
 
+## Detection Pipeline
+
+The anomaly detection workflow processes network traffic data through several stages:
+
+Network Flow Data  
+→ Feature Engineering  
+→ Isolation Forest Model  
+→ Anomaly Scoring  
+→ Security Analysis
+
+This pipeline allows network traffic patterns to be analyzed for unusual behavior that may indicate malicious activity.
+
+---
+
 ## Model Performance Summary
 
 | Metric | Result |
