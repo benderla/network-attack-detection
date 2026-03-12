@@ -260,6 +260,19 @@ Key observations included:
 
 ---
 
+## Model Performance
+
+Detection performance was evaluated using labeled attack traffic in the CIC-IDS2017 dataset.
+
+Key evaluation metrics included:
+
+• Precision – proportion of detected anomalies that correspond to true attack traffic  
+• Recall – proportion of actual attacks correctly detected by the model  
+
+Anomaly score thresholds were analyzed to balance detection sensitivity and false positive rates when identifying suspicious network traffic.
+
+---
+
 ## Visualizations
 
 The notebook includes visualizations such as:
