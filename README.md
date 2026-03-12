@@ -290,6 +290,31 @@ Anomaly score thresholds were analyzed to balance detection sensitivity and fals
 
 ---
 
+## How to Run
+
+Clone the repository:
+
+```
+git clone https://github.com/benderla/network-attack-detection
+cd network-attack-detection
+```
+
+Install dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+Open the notebook:
+
+```
+jupyter notebook attack_detection_model.ipynb
+```
+
+Run the notebook to reproduce the anomaly detection workflow and visualizations.
+
+---
+
 ## Visualizations
 
 These visualizations highlight anomalous traffic patterns identified by the Isolation Forest model.
