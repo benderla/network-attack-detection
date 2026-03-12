@@ -29,6 +29,22 @@ malicious activity.
 
 ---
 
+## Dataset
+
+This project uses the **CIC-IDS2017 network intrusion detection dataset**, which contains labeled network traffic representing both benign activity and several types of cyber attacks.
+
+The dataset includes features extracted from network flows such as:
+
+• flow duration  
+• packet count  
+• byte count  
+• protocol type  
+• source and destination ports  
+
+These features are used to train an **Isolation Forest anomaly detection model** that identifies unusual traffic patterns that may indicate malicious behavior.
+
+---
+
 ## Example Visualization
 
 Below is an example of anomaly detection results highlighting
