@@ -33,6 +33,9 @@ malicious activity.
 
 This project uses the **CIC-IDS2017 network intrusion detection dataset**, which contains labeled network traffic representing both benign activity and several types of cyber attacks.
 
+Dataset size:
+~700,000 network flow records processed using Python (pandas) ETL workflows.
+
 The dataset includes features extracted from network flows such as:
 
 • flow duration  
