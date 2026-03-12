@@ -275,6 +275,12 @@ Anomaly score thresholds were analyzed to balance detection sensitivity and fals
 
 ## Visualizations
 
+These visualizations highlight anomalous traffic patterns identified by the Isolation Forest model.
+
+Plots examine anomaly score distributions and network flow characteristics such as destination ports associated with suspicious traffic.  
+
+These visualizations help validate the model's ability to surface unusual network behavior that may indicate malicious activity.
+
 The notebook includes visualizations such as:
 
 - Top Suspicious Network Flows
