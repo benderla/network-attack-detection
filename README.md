@@ -255,6 +255,20 @@ These visualizations help analysts quickly identify unusual traffic patterns.
 
 ---
 
+## Model Evaluation
+
+The Isolation Forest model was evaluated against labeled attack traffic within the CIC-IDS2017 dataset.
+
+Evaluation focused on:
+
+- Precision and recall analysis of anomalous traffic detection
+- Anomaly score distribution across network flow types
+- Identification of suspicious destination ports and abnormal connection durations
+
+These metrics helped validate that flows with the highest Isolation Forest anomaly scores aligned with known malicious traffic patterns in the CIC-IDS2017 dataset.
+
+---
+
 ## Why This Matters
 
 Modern networks generate massive volumes of traffic, making manual
