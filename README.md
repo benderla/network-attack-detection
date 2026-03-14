@@ -33,17 +33,7 @@ malicious activity.
 
 The anomaly detection workflow follows a typical machine learning pipeline for cybersecurity analytics.
 
-Network flow data  
-        ↓  
-Feature engineering (pandas)  
-        ↓  
-Isolation Forest anomaly detection model  
-        ↓  
-Anomaly scoring and ranking  
-        ↓  
-Visualization of suspicious network flows  
-        ↓  
-Security analyst investigation
+![Anomaly Detection Architecture](docs/anomaly_detection_architecture.png)
 
 ---
 
