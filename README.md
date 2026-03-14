@@ -29,6 +29,14 @@ malicious activity.
 
 ---
 
+## System Architecture
+
+The anomaly detection workflow follows a typical machine learning pipeline for cybersecurity analytics.
+
+![Anomaly Detection Architecture](docs/anomaly_detection_architecture.png)
+
+---
+
 ## Dataset
 
 This project uses the **CIC-IDS2017 network intrusion detection dataset**, which contains labeled network traffic representing both benign activity and several types of cyber attacks.
@@ -48,12 +56,83 @@ These features are used to train an **Isolation Forest anomaly detection model**
 
 ---
 
+## Model Evaluation
+
+The Isolation Forest model was evaluated by comparing anomaly scores against labeled attack traffic in the CIC-IDS2017 dataset.
+
+Evaluation metrics used:
+
+• Precision – proportion of flagged anomalies that correspond to malicious traffic  
+• Recall – ability of the model to detect known attack flows  
+• False Positive Rate – benign traffic incorrectly flagged as anomalous  
+
+These metrics help balance detection capability with operational usability for security teams, since excessive false positives can overwhelm analysts.
+
+The goal of the model is not perfect classification but identifying unusual traffic patterns that warrant investigation in a security operations workflow.
+
+---
+
+## Model Results
+
+Isolation Forest anomaly detection performance was evaluated against labeled attack traffic in the CIC-IDS2017 dataset.
+
+| Metric | Description |
+|------|------|
+| Precision | Percentage of detected anomalies that correspond to actual attacks |
+| Recall | Percentage of attack traffic successfully detected |
+| False Positive Rate | Percentage of normal traffic incorrectly flagged as anomalous |
+
+These metrics illustrate how anomaly detection models balance detection capability with operational usability in security environments.
+
+---
+
 ## Example Visualization
 
 Below is an example of anomaly detection results highlighting
 the most suspicious network flows identified by the model.
 
 ![Top Suspicious Network Flows](outputs/anomaly_chart.png)
+
+---
+
+## Feature Importance Analysis
+
+Understanding which features contribute most strongly to anomaly detection helps interpret model behavior.
+
+Tree-based anomaly detection methods such as Isolation Forest allow analysis of feature influence across decision paths.
+
+Network flow indicators that often contribute to anomaly detection include:
+
+• flow duration  
+• packet count  
+• byte count  
+• destination port frequency  
+• connection rate patterns  
+
+Feature importance analysis helps security analysts understand why specific traffic flows are flagged as suspicious and supports further feature engineering improvements.
+
+---
+
+## Program Management Considerations
+
+Deploying an anomaly detection model in a production security environment requires coordination across multiple teams and operational workflows.
+
+Key considerations include:
+
+• Data pipeline reliability  
+Network flow data must be consistently ingested and processed to ensure the model receives accurate and timely inputs.
+
+• Model retraining strategy  
+Traffic patterns evolve over time, so the anomaly detection model should be periodically retrained to maintain effectiveness.
+
+• Monitoring and alert thresholds  
+Operational thresholds must balance detection sensitivity with analyst workload to avoid excessive false positives.
+
+• Cross-team coordination  
+Successful deployment requires collaboration between data science, platform engineering, and security operations teams.
+
+• Incident response integration  
+Detected anomalies should feed into SOC workflows so analysts can investigate suspicious activity quickly.
 
 ---
 
