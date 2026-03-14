@@ -73,6 +73,29 @@ the most suspicious network flows identified by the model.
 
 ---
 
+## Program Management Considerations
+
+Deploying an anomaly detection model in a production security environment requires coordination across multiple teams and operational workflows.
+
+Key considerations include:
+
+• Data pipeline reliability  
+Network flow data must be consistently ingested and processed to ensure the model receives accurate and timely inputs.
+
+• Model retraining strategy  
+Traffic patterns evolve over time, so the anomaly detection model should be periodically retrained to maintain effectiveness.
+
+• Monitoring and alert thresholds  
+Operational thresholds must balance detection sensitivity with analyst workload to avoid excessive false positives.
+
+• Cross-team coordination  
+Successful deployment requires collaboration between data science, platform engineering, and security operations teams.
+
+• Incident response integration  
+Detected anomalies should feed into SOC workflows so analysts can investigate suspicious activity quickly.
+
+---
+
 ## Motivation
 
 Network security analysts must identify malicious activity within extremely
