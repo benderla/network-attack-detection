@@ -29,6 +29,24 @@ malicious activity.
 
 ---
 
+## System Architecture
+
+The anomaly detection workflow follows a typical machine learning pipeline for cybersecurity analytics.
+
+Network flow data  
+        ↓  
+Feature engineering (pandas)  
+        ↓  
+Isolation Forest anomaly detection model  
+        ↓  
+Anomaly scoring and ranking  
+        ↓  
+Visualization of suspicious network flows  
+        ↓  
+Security analyst investigation
+
+---
+
 ## Dataset
 
 This project uses the **CIC-IDS2017 network intrusion detection dataset**, which contains labeled network traffic representing both benign activity and several types of cyber attacks.
