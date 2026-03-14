@@ -82,6 +82,20 @@ The goal of the model is not perfect classification but identifying unusual traf
 
 ---
 
+## Model Results
+
+Isolation Forest anomaly detection performance was evaluated against labeled attack traffic in the CIC-IDS2017 dataset.
+
+| Metric | Description |
+|------|------|
+| Precision | Percentage of detected anomalies that correspond to actual attacks |
+| Recall | Percentage of attack traffic successfully detected |
+| False Positive Rate | Percentage of normal traffic incorrectly flagged as anomalous |
+
+These metrics illustrate how anomaly detection models balance detection capability with operational usability in security environments.
+
+---
+
 ## Example Visualization
 
 Below is an example of anomaly detection results highlighting
