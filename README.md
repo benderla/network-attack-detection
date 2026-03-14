@@ -48,6 +48,22 @@ These features are used to train an **Isolation Forest anomaly detection model**
 
 ---
 
+## Model Evaluation
+
+The Isolation Forest model was evaluated by comparing anomaly scores against labeled attack traffic in the CIC-IDS2017 dataset.
+
+Evaluation metrics used:
+
+• Precision – proportion of flagged anomalies that correspond to malicious traffic  
+• Recall – ability of the model to detect known attack flows  
+• False Positive Rate – benign traffic incorrectly flagged as anomalous  
+
+These metrics help balance detection capability with operational usability for security teams, since excessive false positives can overwhelm analysts.
+
+The goal of the model is not perfect classification but identifying unusual traffic patterns that warrant investigation in a security operations workflow.
+
+---
+
 ## Example Visualization
 
 Below is an example of anomaly detection results highlighting
