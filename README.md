@@ -105,6 +105,24 @@ the most suspicious network flows identified by the model.
 
 ---
 
+## Feature Importance Analysis
+
+Understanding which features contribute most strongly to anomaly detection helps interpret model behavior.
+
+Tree-based anomaly detection methods such as Isolation Forest allow analysis of feature influence across decision paths.
+
+Network flow indicators that often contribute to anomaly detection include:
+
+• flow duration  
+• packet count  
+• byte count  
+• destination port frequency  
+• connection rate patterns  
+
+Feature importance analysis helps security analysts understand why specific traffic flows are flagged as suspicious and supports further feature engineering improvements.
+
+---
+
 ## Program Management Considerations
 
 Deploying an anomaly detection model in a production security environment requires coordination across multiple teams and operational workflows.
