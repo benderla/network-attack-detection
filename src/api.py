@@ -4,33 +4,21 @@ from sklearn.ensemble import IsolationForest
 
 app = FastAPI()
 
-# ------------------------------------------
-# Load dataset
-# ------------------------------------------
-
 df = pd.read_csv("data/raw.csv")
-
-# Fix whitespace in column names
 df.columns = df.columns.str.strip()
 
-# Select features
 features = df[["Flow Duration", "Flow Packets/s"]]
 
-# Train model
 model = IsolationForest(random_state=42)
 model.fit(features)
 
-# ------------------------------------------
-# Health endpoint
-# ------------------------------------------
-
 @app.get("/")
-def health():
-    return {"status": "anomaly detection service running"}
+def root():
+    return {"service": "network anomaly detection API"}
 
-# ------------------------------------------
-# Prediction endpoint
-# ------------------------------------------
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 @app.post("/predict")
 def predict(duration: float, packet_rate: float):
@@ -42,6 +30,4 @@ def predict(duration: float, packet_rate: float):
 
     score = model.decision_function(input_df)[0]
 
-    return {
-        "anomaly_score": float(score)
-    }
+    return {"anomaly_score": float(score)}

@@ -3,7 +3,7 @@ Isolation Forest on the CIC-IDS2017 cybersecurity dataset.
 
 # Network Attack Detection using Isolation Forest
 
-Machine Learning | Cybersecurity | Network Anomaly Detection | Python
+Machine Learning | Cybersecurity | Network Anomaly Detection | Python | FastAPI | Docker | Cybersecurity Analytics
 
 ---
 
@@ -34,6 +34,20 @@ malicious activity.
 The anomaly detection workflow follows a typical machine learning pipeline for cybersecurity analytics.
 
 ![Anomaly Detection Architecture](docs/anomaly_detection_architecture.png)
+
+---
+
+## Deployment Architecture
+
+Client Request
+      ↓
+FastAPI REST API
+      ↓
+Isolation Forest Model
+      ↓
+Docker Container
+      ↓
+Anomaly Score Response
 
 ---
 
@@ -533,6 +547,50 @@ pip install pandas numpy scikit-learn matplotlib
 3. Launch the notebook
 
 jupyter notebook attack_detection_model.ipynb
+
+---
+
+## Running the Service
+
+The anomaly detection model can be deployed as a containerized API service.
+
+### Build the Docker container
+
+docker build -t anomaly-detector .
+
+### Run the container
+
+docker run -p 8000:8000 anomaly-detector
+
+### Access the API documentation
+
+FastAPI automatically generates interactive API documentation.
+
+http://localhost:8000/docs
+
+### Health check
+
+http://localhost:8000/health
+
+### Example request
+
+POST /predict
+
+Parameters
+
+duration  
+packet_rate  
+
+Example values
+
+duration = 10000  
+packet_rate = 50  
+
+Example response
+
+{
+  "anomaly_score": 0.168
+}
 
 ---
 
