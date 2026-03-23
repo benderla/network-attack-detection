@@ -46,6 +46,16 @@ network-attack-detection
 
 ---
 
+## Architecture
+
+### ML Pipeline
+![ML Pipeline](docs/ml-pipeline.png)
+
+### Deployment Architecture
+![Deployment Architecture](docs/deployment-architecture.png)
+
+---
+
 ## System Architecture
 
 The anomaly detection workflow follows a typical machine learning pipeline for cybersecurity analytics.

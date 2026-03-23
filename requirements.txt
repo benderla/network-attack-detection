@@ -1,9 +1,10 @@
+fastapi
+uvicorn
 pandas
 numpy
 scikit-learn
 matplotlib
 seaborn
 jupyter
-fastapi
-uvicorn
+joblib
 pytest
