@@ -37,6 +37,20 @@ The anomaly detection workflow follows a typical machine learning pipeline for c
 
 ---
 
+## System Architecture
+
+The project demonstrates a complete machine learning workflow for anomaly detection and model deployment.
+
+Data Pipeline  
+→ Feature Selection  
+→ Isolation Forest Model  
+→ FastAPI Inference Service  
+→ Docker Container Deployment
+
+This architecture mirrors how machine learning models are deployed in production environments where models are exposed as APIs for integration with monitoring and security systems.
+
+---
+
 ## Dataset
 
 This project uses the **CIC-IDS2017 network intrusion detection dataset**, which contains labeled network traffic representing both benign activity and several types of cyber attacks.
@@ -151,6 +165,8 @@ surface suspicious activity without relying on predefined signatures.
 - Pandas
 - NumPy
 - Scikit-learn
+- FastAPI
+- Docker
 - Matplotlib
 - Jupyter Notebook
 
@@ -391,6 +407,54 @@ jupyter notebook attack_detection_model.ipynb
 ```
 
 Run the notebook to reproduce the anomaly detection workflow and visualizations.
+
+---
+
+## API Inference Service
+
+The anomaly detection model can also be deployed as a containerized API service.
+
+This allows external systems to send network flow features and receive anomaly scores in real time.
+
+Architecture:
+
+Client → FastAPI Service → Isolation Forest Model → Docker Container
+
+### Build the container
+
+docker build -t anomaly-detector .
+
+### Run the service
+
+docker run -p 8000:8000 anomaly-detector
+
+### Open the API documentation
+
+http://localhost:8000/docs
+
+FastAPI automatically generates interactive API documentation where users can test the prediction endpoint.
+
+### Example request
+
+POST /predict
+
+Parameters:
+
+duration  
+packet_rate
+
+Example values:
+
+duration = 10000  
+packet_rate = 50
+
+Example response:
+
+{
+  "anomaly_score": 0.168
+}
+
+This API demonstrates how machine learning models can be deployed as lightweight inference services that integrate into larger security monitoring pipelines.
 
 ---
 
