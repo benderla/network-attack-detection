@@ -29,6 +29,23 @@ malicious activity.
 
 ---
 
+## Project Structure
+
+network-attack-detection
+│
+├─ src/                       # Python source code for model training and API
+│   ├─ api.py                 # FastAPI service exposing anomaly predictions
+│   └─ attack_detection_model.py
+│
+├─ data/                      # Dataset used for anomaly detection experiments
+├─ docs/                      # Architecture diagrams and documentation
+├─ outputs/                   # Generated anomaly visualizations
+├─ Dockerfile                 # Container definition for API deployment
+├─ requirements.txt           # Python dependencies
+└─ README.md
+
+---
+
 ## System Architecture
 
 The anomaly detection workflow follows a typical machine learning pipeline for cybersecurity analytics.
@@ -39,15 +56,17 @@ The anomaly detection workflow follows a typical machine learning pipeline for c
 
 ## Deployment Architecture
 
-Client Request
-      ↓
+The anomaly detection model is exposed as a containerized API service that accepts network flow features and returns anomaly scores.
+
+Client
+↓
 FastAPI REST API
-      ↓
+↓
 Isolation Forest Model
-      ↓
+↓
 Docker Container
-      ↓
-Anomaly Score Response
+↓
+JSON Response
 
 ---
 
@@ -552,23 +571,19 @@ jupyter notebook attack_detection_model.ipynb
 
 ## Running the Service
 
-The anomaly detection model can be deployed as a containerized API service.
-
-### Build the Docker container
+1. Build the container
 
 docker build -t anomaly-detector .
 
-### Run the container
+2. Run the container
 
 docker run -p 8000:8000 anomaly-detector
 
-### Access the API documentation
-
-FastAPI automatically generates interactive API documentation.
+3. Open the API documentation
 
 http://localhost:8000/docs
 
-### Health check
+4. Verify the service is healthy
 
 http://localhost:8000/health
 
