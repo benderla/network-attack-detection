@@ -491,6 +491,30 @@ This API demonstrates how machine learning models can be deployed as lightweight
 
 ---
 
+## API Endpoints
+
+Health check
+
+GET /health
+
+Example response:
+
+{
+  "status": "ok"
+}
+
+Prediction endpoint
+
+POST /predict?duration=10000&packet_rate=50
+
+Example response:
+
+{
+  "anomaly_score": 0.16
+}
+
+---
+
 ## Visualizations
 
 These visualizations highlight anomalous traffic patterns identified by the Isolation Forest model.
