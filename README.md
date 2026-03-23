@@ -3,7 +3,7 @@ Isolation Forest on the CIC-IDS2017 cybersecurity dataset.
 
 # Network Attack Detection using Isolation Forest
 
-Machine Learning | Cybersecurity | Network Anomaly Detection | Python | FastAPI | Docker | Cybersecurity Analytics
+Machine Learning | Cybersecurity | Network Anomaly Detection | Python | FastAPI | Docker | Cybersecurity Analytics | Cybersecurity ML | CI/CD
 
 ---
 
