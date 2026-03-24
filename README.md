@@ -67,6 +67,13 @@ network-attack-detection
 
 ---
 
+## Quick Start
+
+pip install -r requirements.txt
+python src/train_model.py
+
+---
+
 ## Architecture
 
 ### ML Pipeline
