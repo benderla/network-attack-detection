@@ -122,6 +122,14 @@ This architecture mirrors how machine learning models are deployed in production
 
 ---
 
+## Model Documentation
+
+Detailed model documentation:
+
+docs/model-card.md
+
+---
+
 ## Dataset
 
 This project uses the **CIC-IDS2017 network intrusion detection dataset**, which contains labeled network traffic representing both benign activity and several types of cyber attacks.
