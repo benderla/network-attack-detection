@@ -31,14 +31,8 @@ malicious activity.
 
 ## Example Model Results
 
-### Confusion Matrix
-![Confusion Matrix](docs/confusion-matrix.png)
-
-### ROC Curve
-![ROC Curve](docs/roc-curve.png)
-
 ### Anomaly Score Distribution
-![Anomaly Scores](docs/anomaly-score-distribution.png)
+![Anomaly Scores](docs/anomaly_score_distribution.png)
 
 ### Feature Importance
 ![Feature Importance](docs/feature-importance.png)
@@ -89,6 +83,9 @@ python src/train_model.py
 The anomaly detection workflow follows a typical machine learning pipeline for cybersecurity analytics.
 
 ![Anomaly Detection Architecture](docs/anomaly_detection_architecture.png)
+
+See the platform architecture diagram and deployment overview:
+docs/architecture.md
 
 ---
 
