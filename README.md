@@ -29,6 +29,25 @@ malicious activity.
 
 ---
 
+## Example Model Results
+
+### Confusion Matrix
+![Confusion Matrix](docs/confusion-matrix.png)
+
+### ROC Curve
+![ROC Curve](docs/roc-curve.png)
+
+### Anomaly Score Distribution
+![Anomaly Scores](docs/anomaly-score-distribution.png)
+
+### Feature Importance
+![Feature Importance](docs/feature-importance.png)
+
+### Precision–Recall Threshold
+![Precision Recall](docs/precision-recall-threshold.png)
+
+---
+
 ## Project Structure
 
 network-attack-detection
@@ -38,7 +57,9 @@ network-attack-detection
 │   └─ attack_detection_model.py
 │
 ├─ data/                      # Dataset used for anomaly detection experiments
+│   └─ raw.csv                # Actual anomaly dataset
 ├─ docs/                      # Architecture diagrams and documentation
+├─ notebooks/                 # Model development and experiments
 ├─ outputs/                   # Generated anomaly visualizations
 ├─ Dockerfile                 # Container definition for API deployment
 ├─ requirements.txt           # Python dependencies
@@ -428,6 +449,12 @@ Anomaly score thresholds were analyzed to balance detection sensitivity and fals
 
 ---
 
+## Detection Threshold Tuning
+
+![Precision Recall Threshold](docs/precision-recall-threshold.png)
+
+---
+
 ## How to Run
 
 Clone the repository:
@@ -522,6 +549,12 @@ Example response:
 {
   "anomaly_score": 0.16
 }
+
+---
+
+## Feature Importance
+
+![Feature Importance](docs/feature-importance.png)
 
 ---
 
