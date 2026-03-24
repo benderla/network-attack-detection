@@ -29,13 +29,15 @@ malicious activity.
 
 ---
 
-## Example Model Results
+These visualizations summarize model performance and anomaly detection behavior using the CIC-IDS2017 dataset.
 
-### Anomaly Score Distribution
-![Anomaly Scores](docs/anomaly_score_distribution.png)
+## Model Evaluation
 
 ### Feature Importance
 ![Feature Importance](docs/feature-importance.png)
+
+### Anomaly Score Distribution
+![Anomaly Scores](docs/anomaly_score_distribution.png)
 
 ### Precision–Recall Threshold
 ![Precision Recall](docs/precision-recall-threshold.png)
