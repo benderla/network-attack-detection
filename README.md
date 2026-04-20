@@ -183,24 +183,31 @@ These features capture:
 
 ---
 
-## Limitations and Failure Modes
+## API Inference Service
 
-- Not deployed in a real-time production system
-- Performance depends on feature engineering quality
-- Sensitive to contamination parameter and threshold choice
-- May not generalize to new attack patterns
-- No concept drift handling
+The model is exposed via FastAPI for inference.
 
-Operational risks:
-- false positives can overwhelm analysts
-- false negatives may allow attacks to pass undetected
+### Run with Docker
 
----
+Run from the project root where the Dockerfile is located.
 
-## Reproducibility
+```bash
+docker build -t anomaly-detector .
+docker run -p 8000:8000 anomaly-detector
 
-To reproduce results:
+###Example Response
+
+{
+  "anomaly_score": 0.1682330782229124
+}
 
 ```bash
 pip install -r requirements.txt
 jupyter notebook
+
+### Example Request
+
+The API expects a POST request with query parameters.
+
+```bash
+curl -X POST "http://localhost:8000/predict?duration=10000&packet_rate=50"
