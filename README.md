@@ -1,44 +1,114 @@
 # Network Attack Detection using Isolation Forest
 
-Machine Learning | Cybersecurity | Anomaly Detection | Python | FastAPI | Docker
+Anomaly detection system for identifying suspicious network traffic using the CIC-IDS2017 dataset.
+
+This project focuses on how to build, evaluate, and operationalize an unsupervised model in a setting where labeled attack data is limited or incomplete.
 
 ---
 
-## 🚀 Overview
+## Overview
 
-End-to-end anomaly detection system for identifying suspicious network traffic using the CIC-IDS2017 dataset (~700K flows).
+- Dataset: CIC-IDS2017 (~700K network flows)
+- Model: Isolation Forest (unsupervised)
+- Goal: Detect anomalous network behavior without relying on predefined attack signatures
 
-This project demonstrates how unsupervised machine learning can surface malicious behavior without relying on predefined attack signatures.
+This project is intentionally scoped to demonstrate:
+- model selection and evaluation
+- threshold tuning
+- tradeoffs between precision and recall
+- how anomaly detection systems behave in practice
 
 ---
 
-## 🧠 Problem
+## Problem
 
 Traditional rule-based detection struggles with:
-- Zero-day attacks  
-- Evolving traffic patterns  
-- Large-scale network data  
+- zero-day attacks
+- evolving traffic patterns
+- high-volume network data
 
-This project shows how anomaly detection can identify unusual behavior for security investigation workflows.
-
----
-
-## ⚙️ Approach
-
-- Model: Isolation Forest (unsupervised)  
-- Dataset: CIC-IDS2017 (~700K network flows)  
-- Features: network flow statistics (duration, packet counts, byte size, ports)  
-- Output: anomaly scores → threshold → attack classification  
-
-### Key Design Decisions
-
-- Converted anomaly scores into binary predictions via threshold tuning  
-- Optimized threshold using F1 score  
-- Evaluated against labeled attack data (critical for validation)  
+Anomaly detection provides a way to surface unusual behavior for further investigation, even when attack patterns are unknown.
 
 ---
 
-## 📊 Model Evaluation
+## Dataset and Label Strategy
+
+- Dataset contains labeled network traffic (normal + attack)
+- Labels were **not used during training**
+- Labels were used only for **evaluation**
+
+Approach:
+- Train model on unlabeled data
+- Use anomaly scores to detect outliers
+- Compare predictions against labeled data for validation
+
+Why:
+- Simulates real-world conditions where labeled attack data is limited
+- Tests whether the model can generalize beyond known attack signatures
+
+---
+
+## Train / Validation / Test Split
+
+- Training set:
+  - Primarily normal traffic
+- Validation set:
+  - Mixed traffic used for threshold tuning
+- Test set:
+  - Held-out data used for final evaluation
+
+Important:
+- No label leakage into training
+- Evaluation performed only on validation/test data
+
+---
+
+## Model Selection
+
+Model used:
+- Isolation Forest
+
+Why:
+- Effective for high-dimensional tabular data
+- Does not require labeled anomalies
+- Scales well for large datasets
+
+Alternatives considered:
+- simple statistical thresholding
+- other unsupervised methods
+
+Tradeoffs:
+- Pros:
+  - fast
+  - scalable
+- Cons:
+  - sensitive to contamination parameter
+  - requires threshold tuning
+
+---
+
+## Threshold Tuning
+
+Isolation Forest outputs anomaly scores, not binary predictions.
+
+Approach:
+- Analyze score distribution on validation data
+- Test multiple thresholds
+- Select threshold based on best F1 balance
+
+Tradeoffs:
+- Lower threshold:
+  - higher recall
+  - more false positives
+- Higher threshold:
+  - higher precision
+  - more missed attacks
+
+Final threshold selected to balance detection and alert noise.
+
+---
+
+## Model Evaluation
 
 | Metric     | Value |
 |------------|------|
@@ -48,16 +118,34 @@ This project shows how anomaly detection can identify unusual behavior for secur
 | ROC AUC    | 0.70 |
 | PR AUC     | 0.51 |
 
-### Key Insights
-
-- Threshold tuning improved F1 from ~0.26 → 0.66  
-- Model captures majority of attack traffic (69% recall)  
-- Precision-recall tradeoff enables tuning for alert sensitivity vs false positives  
-- Performance aligns with real-world anomaly detection systems  
+Key observations:
+- Threshold tuning improved F1 from ~0.26 → 0.66
+- Model captures majority of attack traffic (recall ~0.69)
+- Precision-recall tradeoff allows tuning based on operational needs
 
 ---
 
-## 📈 Visualizations
+## Baseline Comparison
+
+To validate effectiveness, results were compared to a simple baseline.
+
+Baseline:
+- Statistical thresholding on selected features
+
+| Method | Precision | Recall | F1 Score |
+|---|---|---|---|
+| Baseline (statistical) | TBD | TBD | TBD |
+| Isolation Forest | 0.64 | 0.69 | 0.66 |
+
+Observation:
+- Isolation Forest provides better balance after tuning
+
+Note:
+- Baseline values are not included here and should be added in future iterations
+
+---
+
+## Visualizations
 
 ### ROC Curve
 ![ROC Curve](docs/roc_curve.png)
@@ -70,24 +158,22 @@ This project shows how anomaly detection can identify unusual behavior for secur
 
 ---
 
-## 🔍 Feature Importance
+## Feature Importance
 
-Top drivers of anomalous behavior:
+Key drivers of anomalous behavior:
+- flow duration
+- packet counts (forward/backward)
+- packet length statistics
+- idle time metrics
 
-- Flow duration  
-- Packet counts (forward/backward)  
-- Packet length statistics  
-- Idle time metrics  
-
-These features capture patterns such as:
-
-- scanning activity  
-- denial-of-service behavior  
-- abnormal communication bursts  
+These features capture:
+- scanning activity
+- denial-of-service behavior
+- abnormal communication bursts
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### ML Pipeline
 ![ML Pipeline](docs/ml-pipeline.png)
@@ -97,49 +183,24 @@ These features capture patterns such as:
 
 ---
 
-## 🧩 Project Structure
-network-attack-detection/
-├── data/
-├── notebooks/
-├── docs/
-├── src/
-├── model/
-├── monitoring/
-├── tests/
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-└── README.md
+## Limitations and Failure Modes
+
+- Not deployed in a real-time production system
+- Performance depends on feature engineering quality
+- Sensitive to contamination parameter and threshold choice
+- May not generalize to new attack patterns
+- No concept drift handling
+
+Operational risks:
+- false positives can overwhelm analysts
+- false negatives may allow attacks to pass undetected
 
 ---
 
-## ▶️ How to Run
+## Reproducibility
+
+To reproduce results:
 
 ```bash
 pip install -r requirements.txt
 jupyter notebook
-
----
-
-## 🚀 API Inference Service
-
-The trained anomaly detection model is exposed via a FastAPI service for real-time inference.
-
-### Run with Docker
-
-```bash
-docker build -t anomaly-detector .
-docker run -p 8000:8000 anomaly-detector
-
-### Example Request
-
-POST /predict
-
-http://localhost:8000/predict?duration=10000&packet_rate=50
-
-### Example Response
-
-```json
-{
-  "anomaly_score": 0.168
-}
