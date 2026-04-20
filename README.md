@@ -194,16 +194,7 @@ Run from the project root where the Dockerfile is located.
 ```bash
 docker build -t anomaly-detector .
 docker run -p 8000:8000 anomaly-detector
-
-###Example Response
-
-{
-  "anomaly_score": 0.1682330782229124
-}
-
-```bash
-pip install -r requirements.txt
-jupyter notebook
+```
 
 ### Example Request
 
@@ -211,3 +202,43 @@ The API expects a POST request with query parameters.
 
 ```bash
 curl -X POST "http://localhost:8000/predict?duration=10000&packet_rate=50"
+```
+
+### Example Response
+
+```json
+{
+  "anomaly_score": 0.1682330782229124
+}
+```
+
+Note:
+This endpoint currently uses POST with query parameters rather than a JSON request body.
+
+---
+
+## Reproducibility
+
+To reproduce results:
+
+```bash
+pip install -r requirements.txt
+jupyter notebook
+```
+
+Steps:
+1. install dependencies  
+2. run training and evaluation notebooks in `notebooks/`  
+3. review outputs in `docs/` and `outputs/`  
+4. launch API service from `api/`  
+
+---
+
+## Interview Questions This Project Supports
+
+- Why did you choose Isolation Forest?  
+- How do you evaluate an unsupervised model?  
+- How did you choose the threshold?  
+- What are the tradeoffs between precision and recall?  
+- What would break this model?  
+- How would you productionize this system?  
