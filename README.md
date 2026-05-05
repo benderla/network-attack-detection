@@ -1,240 +1,135 @@
-# Network Attack Detection using Isolation Forest
+# Network Attack Detection — End-to-End ML System
 
-Anomaly detection system for identifying suspicious network traffic using the CIC-IDS2017 dataset.
+This project builds and deploys an anomaly detection system for identifying suspicious network behavior using real-world traffic data (~700K flow records from the CIC-IDS2017 dataset).
 
-This project focuses on how to build, evaluate, and operationalize an unsupervised model in a setting where labeled attack data is limited or incomplete.
-
----
-
-## Overview
-
-- Dataset: CIC-IDS2017 (~700K network flows)
-- Model: Isolation Forest (unsupervised)
-- Goal: Detect anomalous network behavior without relying on predefined attack signatures
-
-This project is intentionally scoped to demonstrate:
-- model selection and evaluation
-- threshold tuning
-- tradeoffs between precision and recall
-- how anomaly detection systems behave in practice
+The system is designed for highly imbalanced data where attacks are rare but critical, and demonstrates how to move from raw data to a production-ready ML system.
 
 ---
 
-## Problem
+## Why This Matters
 
-Traditional rule-based detection struggles with:
-- zero-day attacks
-- evolving traffic patterns
-- high-volume network data
+* Network traffic is highly imbalanced — attacks are rare but high impact
+* False negatives (missed attacks) are costly, while false positives create alert fatigue
+* Many ML projects stop at modeling — this system extends through deployment and evaluation
 
-Anomaly detection provides a way to surface unusual behavior for further investigation, even when attack patterns are unknown.
-
----
-
-## Dataset and Label Strategy
-
-- Dataset contains labeled network traffic (normal + attack)
-- Labels were **not used during training**
-- Labels were used only for **evaluation**
-
-Approach:
-- Train model on unlabeled data
-- Use anomaly scores to detect outliers
-- Compare predictions against labeled data for validation
-
-Why:
-- Simulates real-world conditions where labeled attack data is limited
-- Tests whether the model can generalize beyond known attack signatures
+This project demonstrates how to design a system that balances these tradeoffs and operates under real-world constraints.
 
 ---
 
-## Train / Validation / Test Split
+## What This System Does
 
-- Training set:
-  - Primarily normal traffic
-- Validation set:
-  - Mixed traffic used for threshold tuning
-- Test set:
-  - Held-out data used for final evaluation
-
-Important:
-- No label leakage into training
-- Evaluation performed only on validation/test data
+* Detects anomalous network flows using an unsupervised Isolation Forest model
+* Engineers features from raw traffic (duration, packet rate, ports, flow statistics)
+* Tunes decision thresholds using precision-recall tradeoffs
+* Evaluates performance using metrics suited for imbalanced data
+* Serves predictions through a FastAPI endpoint
+* Packages the system using Docker for consistent deployment
 
 ---
 
-## Model Selection
+## System Architecture
 
-Model used:
-- Isolation Forest
-
-Why:
-- Effective for high-dimensional tabular data
-- Does not require labeled anomalies
-- Scales well for large datasets
-
-Alternatives considered:
-- simple statistical thresholding
-- other unsupervised methods
-
-Tradeoffs:
-- Pros:
-  - fast
-  - scalable
-- Cons:
-  - sensitive to contamination parameter
-  - requires threshold tuning
+Dataset (~700K records)
+→ Feature Engineering
+→ Isolation Forest Model
+→ Threshold Tuning
+→ Evaluation (PR, ROC, F1)
+→ FastAPI Inference API
+→ Docker Container
 
 ---
 
-## Threshold Tuning
+## Key Results
 
-Isolation Forest outputs anomaly scores, not binary predictions.
-
-Approach:
-- Analyze score distribution on validation data
-- Test multiple thresholds
-- Select threshold based on best F1 balance
-
-Tradeoffs:
-- Lower threshold:
-  - higher recall
-  - more false positives
-- Higher threshold:
-  - higher precision
-  - more missed attacks
-
-Final threshold selected to balance detection and alert noise.
+* Improved model effectiveness through threshold tuning rather than default anomaly scoring
+* Optimized for precision-recall tradeoffs to balance detection vs alert noise
+* Evaluated using metrics appropriate for imbalanced data (PR curve over accuracy)
+* Achieved stable detection performance suitable for anomaly-based security use cases
 
 ---
 
-## Model Evaluation
+## Model Performance
 
-| Metric     | Value |
-|------------|------|
-| Precision  | 0.64 |
-| Recall     | 0.69 |
-| F1 Score   | 0.66 |
-| ROC AUC    | 0.70 |
-| PR AUC     | 0.51 |
-
-Key observations:
-- Threshold tuning improved F1 from ~0.26 → 0.66
-- Model captures majority of attack traffic (recall ~0.69)
-- Precision-recall tradeoff allows tuning based on operational needs
+| Method           | Precision | Recall | F1 Score |
+| ---------------- | --------- | ------ | -------- |
+| Isolation Forest | 0.64      | 0.69   | 0.66     |
 
 ---
 
-## Baseline Comparison
+### Interpretation
 
-To validate effectiveness, results were compared to a simple baseline.
+* Precision (0.64): ~64% of flagged anomalies are actual attacks
+* Recall (0.69): ~69% of true attacks are successfully detected
+* F1 Score (0.66): Balanced performance for an imbalanced anomaly detection problem
 
-Baseline:
-- Statistical thresholding on selected features
+These results were achieved through threshold tuning using the precision-recall curve, which is more appropriate than accuracy for highly imbalanced datasets.
 
-| Method | Precision | Recall | F1 Score |
-|---|---|---|---|
-| Isolation Forest | 0.64 | 0.69 | 0.66 |
-
-Observation:
-- Isolation Forest provides better balance after tuning
+Results are based on evaluation against labeled attack data within the CIC-IDS2017 dataset.
 
 ---
 
-## Visualizations
+## Example Usage
 
-### ROC Curve
-![ROC Curve](docs/roc_curve.png)
-
-### Precision-Recall Curve
-![PR Curve](docs/pr_curve.png)
-
-### Confusion Matrix
-![Confusion Matrix](docs/confusion_matrix.png)
-
----
-
-## Feature Importance
-
-Key drivers of anomalous behavior:
-- flow duration
-- packet counts (forward/backward)
-- packet length statistics
-- idle time metrics
-
-These features capture:
-- scanning activity
-- denial-of-service behavior
-- abnormal communication bursts
-
----
-
-## Architecture
-
-### ML Pipeline
-![ML Pipeline](docs/ml-pipeline.png)
-
-### Deployment Architecture
-![Deployment Architecture](docs/deployment-architecture.png)
-
----
-
-## API Inference Service
-
-The model is exposed via FastAPI for inference.
-
-### Run with Docker
-
-Run from the project root where the Dockerfile is located.
+### Run API locally
 
 ```bash
-docker build -t anomaly-detector .
-docker run -p 8000:8000 anomaly-detector
+uvicorn app.main:app --reload
 ```
 
-### Example Request
-
-The API expects a POST request with query parameters.
+### Test prediction
 
 ```bash
-curl -X POST "http://localhost:8000/predict?duration=10000&packet_rate=50"
+curl -X POST "http://127.0.0.1:8000/predict" \
+-H "Content-Type: application/json" \
+-d '{"features": [ ... ]}'
 ```
 
-### Example Response
+### Health check
 
-```json
-{
-  "anomaly_score": 0.1682330782229124
-}
+```bash
+curl http://127.0.0.1:8000/health
 ```
-
-Note:
-This endpoint currently uses POST with query parameters rather than a JSON request body.
 
 ---
 
-## Reproducibility
+## What This Project Demonstrates
 
-To reproduce results:
-
-```bash
-pip install -r requirements.txt
-jupyter notebook
-```
-
-Steps:
-1. install dependencies  
-2. run training and evaluation notebooks in `notebooks/`  
-3. review outputs in `docs/` and `outputs/`  
-4. launch API service from `api/`  
+* End-to-end ML system design (data → model → API → deployment)
+* Handling of imbalanced datasets using appropriate evaluation methods
+* Transition from offline model to production inference service
+* Practical deployment using Docker and REST APIs
 
 ---
 
-## Interview Questions This Project Supports
+## Limitations / Next Steps
 
-- Why did you choose Isolation Forest?  
-- How do you evaluate an unsupervised model?  
-- How did you choose the threshold?  
-- What are the tradeoffs between precision and recall?  
-- What would break this model?  
-- How would you productionize this system?  
+* Model is unsupervised — may flag benign anomalies
+* Threshold selection is static and could be adaptive
+* No live data pipeline or streaming integration
+
+Future improvements:
+
+* Add real-time inference pipeline
+* Introduce feedback loop for model retraining
+* Expand monitoring for drift and performance degradation
+
+---
+
+## Repository Structure
+
+* `app/` → FastAPI service for inference
+* `model/` → trained model artifacts
+* `notebooks/` → data exploration and modeling
+* `scripts/` → feature engineering and preprocessing
+* `docker/` → containerization setup
+
+---
+
+## Tech Stack
+
+* Python (pandas, numpy, scikit-learn)
+* FastAPI (model serving)
+* Docker (containerization)
+* Matplotlib / Seaborn (evaluation and visualization)
+
+---
