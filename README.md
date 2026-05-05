@@ -134,14 +134,10 @@ Baseline:
 
 | Method | Precision | Recall | F1 Score |
 |---|---|---|---|
-| Baseline (statistical) | TBD | TBD | TBD |
 | Isolation Forest | 0.64 | 0.69 | 0.66 |
 
 Observation:
 - Isolation Forest provides better balance after tuning
-
-Note:
-- Baseline values are not included here and should be added in future iterations
 
 ---
 
